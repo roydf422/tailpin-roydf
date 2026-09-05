@@ -5,6 +5,37 @@ applyTo: '**/*.astro'
 
 # Astro Component Instructions
 
+## Comment Philosophy
+
+**Comment intent, not mechanics.** Comments should explain *why* code exists or the reasoning behind a non-obvious decision, not restate what the code already says.
+
+- ✅ **Good**: `// Group games by category for alphabetical browsing`
+- ❌ **Bad**: `// Loop through each game` or `// Check if title exists`
+
+Only comment:
+- Design decisions or architectural trade-offs
+- Non-obvious intent or problem being solved
+- Complex logic or surprising behavior
+- Workarounds for limitations (with links to issues/docs)
+
+For **reusable `.astro` components**, document the `Props` interface with TSDoc/JSDoc to make the component API self-explanatory:
+
+```astro
+---
+/**
+ * Displays a game card in a grid with title, description, and CTA.
+ * @param game - The game object with title, description, and other metadata
+ */
+interface Props {
+  game: Game;
+}
+
+const { game } = Astro.props;
+---
+```
+
+Treat outdated comments as bugs—update or delete them whenever touching the related code.
+
 ## Astro Component Patterns
 
 Astro handles everything in the UI: pages, layouts, components, routing, and content. The site is **fully prerendered** (`output: 'static'`) — there is no client-side UI framework and no separate API server. Pages read data **directly in frontmatter** at build time via the Drizzle/Node SQLite data-access helpers in `src/lib/`.

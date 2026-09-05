@@ -88,6 +88,15 @@ npm run typecheck:all    # both of the above
 > [!NOTE]
 > The native compiler is used only for type checking (`--noEmit`); the site is still built by `astro build` (Vite/esbuild). The classic `typescript` package stays on v6 until `typescript-eslint` and `@astrojs/check` support the native API (~TS 7.1); a Dependabot `ignore` in `.github/dependabot.yml` holds the classic `typescript@7` bump until then.
 
+## Coding Standards
+
+This repository follows clear, documented coding standards to keep the codebase consistent. See [`.github/instructions/coding-standards.md`](.github/instructions/coding-standards.md) for guidance on:
+
+- **Comments**: Explain *why*, not *what*; avoid restating code
+- **Documentation**: JSDoc/TSDoc for exported functions and component APIs
+- **TypeScript**: Explicit types for all parameters and return values
+- **Testing**: Testability patterns and determinism requirements
+
 ## Copilot Agents & Skills
 
 This project ships Copilot customizations to assist with quality assurance:

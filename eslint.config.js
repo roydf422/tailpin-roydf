@@ -33,11 +33,15 @@ export default [
   // Astro files
   ...eslintPluginAstro.configs.recommended,
 
-  // TypeScript-specific overrides
+  // TypeScript-specific overrides (excluding .astro files)
   {
-    files: ["**/*.ts"],
+    files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
       parser: tseslint.parser,
+    },
+    rules: {
+      // Warn about any usage (use unknown with narrowing instead)
+      "@typescript-eslint/no-explicit-any": "warn",
     },
   },
 ];

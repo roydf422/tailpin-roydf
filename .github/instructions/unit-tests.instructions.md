@@ -5,6 +5,20 @@ applyTo: '**/*.test.ts'
 
 # Unit Testing Guidelines (Vitest + Drizzle/Node SQLite)
 
+## Comment Philosophy
+
+**Comment intent, not mechanics.** Comments in tests should explain *why* a test case exists or what non-obvious scenario it covers, not restate what the test does.
+
+- ✅ **Good**: `// Ensures deterministic ratings stay within bounds for reproducible static builds`
+- ❌ **Bad**: `// Check if rating is greater than 3.0` or `// Call the function`
+
+Only comment:
+- Why a test case matters (e.g., boundary conditions, edge cases)
+- Non-obvious setup or fixtures
+- Workarounds or special conditions (with links to issues)
+
+## Unit Testing Guidelines
+
 Unit tests run with **Vitest** (`npm run test:unit`). They cover the two highest-value, framework-free layers:
 
 1. **Pure transforms** (`db/transforms.ts`) — CSV parsing, description building, de-duplication, deterministic ratings.
