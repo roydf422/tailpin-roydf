@@ -7,6 +7,35 @@ applyTo: 'db/**/*.ts,src/lib/*.ts'
 
 The app's data lives in a local SQLite database accessed through **Drizzle ORM** over Node.js's built-in `node:sqlite` driver. It is consumed at **build time** from Astro page frontmatter — there is no runtime API server. Schema changes are managed with **drizzle-kit** migrations.
 
+## Comment Philosophy
+
+**Comment intent, not mechanics.** Comments should explain *why* code exists or the reasoning behind a non-obvious decision, not restate what the code already says.
+
+- ✅ **Good**: `// Deterministic rating ensures static builds produce consistent output across runs`
+- ❌ **Bad**: `// Initialize the rating variable` or `// Check if id is present`
+
+Comments that merely paraphrase the line below are maintenance debt — they go stale and mislead. Only comment:
+- Design decisions or architectural trade-offs
+- Non-obvious intent or problem being solved
+- Workarounds for limitations or quirks (with links to issues/docs)
+- Complex algorithms or business logic
+- Deprecation or migration guidance
+
+For **exported functions in `db/` and `src/lib/`**, use **TSDoc/JSDoc** comments instead:
+
+```ts
+/**
+ * Fetches all games, ordered alphabetically by title for determinism in static builds.
+ * @param db - The database instance (injectable for testing)
+ * @returns Array of games with publisher and category relations
+ */
+export async function getAllGames(db: Database): Promise<Game[]> {
+  // Implementation...
+}
+```
+
+Treat outdated comments as bugs—update or delete them whenever touching the related code.
+
 ## Layout
 
 - `db/schema.ts` — Drizzle table definitions (`publishers`, `categories`, `games`) and inferred row types. The single source of truth for the schema.
